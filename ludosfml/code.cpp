@@ -2,8 +2,7 @@
 #include <windows.h>
 #include <iostream>
 #include <cstring>
-//#include <bits/stdc++.h>
-
+using namespace std;
 using std::string;
 int mouse_tracker;
 int noOfPlayers = 4;
@@ -83,7 +82,7 @@ public:
         {
             if (!dice_texture[i].loadFromFile(filenames[i]))
             {
-                std::cout << "File cannot be loaded from: " << filenames[i] << std::endl;
+                cout << "File cannot be loaded from: " << filenames[i] << endl;
                 return;
             }
             dice[i].setTexture(dice_texture[i]);
@@ -102,7 +101,7 @@ public:
         }
         srand(time(0));
         step = ((rand() % 6) + 1);
-        //std::cout<<"Enter dice number:";std::cin>>step;
+        //cout<<"Enter dice number:";cin>>step;
         diceSprite = dice[step - 1];
     }
 };
@@ -127,7 +126,7 @@ public:
     {
         if (!piece_texture.loadFromFile(filename))
         {
-            std::cout << "The Piece Cannot be loaded from:" << filename;
+            cout << "The Piece Cannot be loaded from:" << filename;
             return;
         }
         piece.setTexture(piece_texture);
@@ -141,7 +140,7 @@ public:
     {
         if (!piece_texture.loadFromFile(filename))
         {
-            std::cout << "The Piece cannot be loaded from: " << filename;
+            cout << "The Piece cannot be loaded from: " << filename;
             return;
         }
         piece.setTexture(piece_texture);
@@ -289,7 +288,7 @@ public:
             else
                 is_safe = false;
         }
-        std::cout << "You are progressing ..." << std::endl;
+        cout << "You are progressing ..." << endl;
     }
 
     void moveBackward()
@@ -299,7 +298,7 @@ public:
         set_score(-1);
         is_locked = true;
         is_at_base = true;
-        std::cout << "Amazing!! you killed one." << std::endl;
+        cout << "Amazing!! you killed one." << endl;
     }
 };
 class homereachednum
@@ -336,10 +335,10 @@ public:
         }
         if (!wtex.loadFromFile(wwin))
         {
-            std::cout << "file cannot be loaded" << std::endl;
+            cout << "file cannot be loaded" << endl;
         }
         if (!dcb.loadFromFile(dicebox)) {
-            std::cout << "file cannot be loaded" << std::endl;
+            cout << "file cannot be loaded" << endl;
         }
         wwindow.setTexture(wtex);
         wwindow.setPosition(393, 263);
@@ -349,7 +348,7 @@ public:
             filename = ".\\assets\\" + number[i] + ".png";
             if (!num_texture[i].loadFromFile(filename))
             {
-                std::cout << "file cannot be loaded" << std::endl;
+                cout << "file cannot be loaded" << endl;
             }
             home_piece[i].setTexture(num_texture[i]);
             if (colour == "yellow") {
@@ -430,7 +429,7 @@ public:
             if (!players[playerTurn].pieces[i].is_at_base) {
                 if ((players[playerTurn].pieces[i].get_score() + step) > 56) {
                     players[playerTurn].pieces[i].is_locked = true;
-                    //std::cout<<"This piece is locked."<<std::endl;             
+                    //cout<<"This piece is locked."<<endl;             
                 }
                 else {
                     players[playerTurn].pieces[i].is_locked = false;
@@ -448,7 +447,7 @@ public:
                 }
 
             }
-            //std::cout << "Press your piece to move/withdraw " << std::endl;
+            //cout << "Press your piece to move/withdraw " << endl;
 
             for (int i = 0; i < 4; i++)
             {
@@ -463,10 +462,10 @@ public:
                     piece_no = i;
                     if (pieces[piece_no].reached_home)
                     {
-                        std::cout << " This piece is already home!! " << std::endl;
+                        cout << " This piece is already home!! " << endl;
                         goto hello;
                     }
-                    std::cout << piece_no << std::endl;
+                    cout << piece_no << endl;
                     players[playerTurn].pieces[piece_no].is_locked = false;
                     players[playerTurn].pieces[piece_no].is_at_base = false;
                     players[playerTurn].pieces[piece_no].moveForward(step);
@@ -487,10 +486,10 @@ public:
         }
         else if (lock == 4)
         {
-            std::cout << "Sorry!! All of your Pieces are locked " << std::endl;
+            cout << "Sorry!! All of your Pieces are locked " << endl;
             playerTurn++;
             player_changed = 1;
-            std::cout << "Player changed 1" << std::endl;
+            cout << "Player changed 1" << endl;
             dice_turn = 1;
             dice = 0;
             diceInfo = 0;
@@ -499,18 +498,18 @@ public:
         {
 
         jump:
-            //std::cout << "Press your unlocked piece number to move ( ";
+            //cout << "Press your unlocked piece number to move ( ";
             for (int i = 0; i < 4; i++)
             {
                 if (!players[playerTurn].pieces[i].is_locked)
                 {
                     if (!players[playerTurn].pieces[i].reached_home) {
-                        //std::cout << i + 1 << " ";
+                        //cout << i + 1 << " ";
                         pieces[i].set_texture(filename);
                     }
                 }
             }
-            //std::cout << ")" << std::endl;
+            //cout << ")" << endl;
 
             for (int i = 0; i < 4; i++)
             {
@@ -520,10 +519,10 @@ public:
                 if (localPosition.x > pieceX && localPosition.x < pieceX + 40 && localPosition.y > pieceY && localPosition.y < pieceY + 40 && (sf::Mouse::isButtonPressed(sf::Mouse::Left)))
                 {
                     piece_no = i;
-                    std::cout << piece_no << std::endl;
+                    cout << piece_no << endl;
                     if (pieces[piece_no].is_locked)
                     {
-                        std::cout << "Ohhh!! This piece is locked!!" << std::endl;
+                        cout << "Ohhh!! This piece is locked!!" << endl;
                         goto jump;
                     }
                     players[playerTurn].pieces[piece_no].moveForward(step);
@@ -537,7 +536,7 @@ public:
                         if (!players[playerTurn].pieces[piece_no].reached_home) {
                             playerTurn++;
                             player_changed = 1;
-                            std::cout << "Player changed 2";
+                            cout << "Player changed 2";
                         }
                         else {
                             players[playerTurn].number_of_piece_home += 1;
@@ -566,17 +565,17 @@ public:
         if (checkPoint)
         {
             checkPoint = 0;
-            std::cout << "Checkpoint entered" << std::endl;
+            cout << "Checkpoint entered" << endl;
             if (pieces[piece_no].is_safe)
                 return;
             for (int i = 0; i < noOfPlayers; i++)
             {
-                std::cout << "Checking started for" << i << " " << (i != pt) << std::endl;
+                cout << "Checking started for" << i << " " << (i != pt) << endl;
                 for (int j = 0; j < 4; j++)
                 {
                     if ((i != pt) && players[i].pieces[j].get_coordinates() == pieces[piece_no].get_coordinates())
                     {
-                        std::cout << "Found" << std::endl;
+                        cout << "Found" << endl;
                         players[i].pieces[j].moveBackward();
                         if (step != 1 && step != 6)
                         {
@@ -683,7 +682,7 @@ int main()
     sf::Texture diceTexture;
     if (!diceTexture.loadFromFile(file))
     {
-        std::cout << "File cant be loaded: " << file << std::endl;
+        cout << "File cant be loaded: " << file << endl;
         return -1;
     }
     diceSprite.setTexture(diceTexture);
@@ -758,8 +757,8 @@ int main()
 
             if (!diceInfo)
             {
-                std::cout << "\n********** " << colourOrder[playerTurn] << "'s turn **************" << std::endl;
-                std::cout << "Press dice to roll.." << std::endl;
+                cout << "\n********** " << colourOrder[playerTurn] << "'s turn **************" << endl;
+                cout << "Press dice to roll.." << endl;
                 diceInfo = 1;
             }
 
@@ -771,7 +770,7 @@ int main()
                 dice = 1;
                 d1.dice_roll();
 
-                std::cout << "Dice Rolled: " << step << std::endl;
+                cout << "Dice Rolled: " << step << endl;
 
             }
 
@@ -799,7 +798,7 @@ int main()
             if (piece_changed)
             {
                 int turn = playerTurn;
-                std::cout << player_changed << std::endl;
+                cout << player_changed << endl;
                 if (player_changed == 1 && player_turn_skipped == 1) {
                     turn = turn - 2;
                 }
@@ -824,7 +823,7 @@ int main()
             //    }
             // }
             // if(count == noOfPlayers){
-            //     std::cout<<"GAME OVER!!"<<std::endl;
+            //     cout<<"GAME OVER!!"<<endl;
             //     window.close(); 
             // }  
             if (players[ww].allhome) {
